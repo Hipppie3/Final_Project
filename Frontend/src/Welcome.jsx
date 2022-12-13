@@ -2,7 +2,7 @@
 function Welcome ({user}) {
  console.log(user)
  return (
-  <h1>
+  <h1 style = {{color: "black"}}>
    Hello {user.username}!
   </h1>
  )

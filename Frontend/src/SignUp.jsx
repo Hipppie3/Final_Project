@@ -19,8 +19,7 @@ function SignUp({ setUser }) {
         username,
         password,
         password_confirmation: passwordConfirmation,
-        
-      }),
+        }),
       
     }).then((res) => {
       // clear errors
@@ -46,17 +45,16 @@ function SignUp({ setUser }) {
 
   return (
     <div>
-      <h1 className="signUpE">
-      <ul>
+      <form onSubmit={handleSubmit} className = "signUpForm">
+        <h1 style = {{fontFamily: "cursive", color: "black"}}>Sign Up</h1>
+        <ul style = {{listStyle: "none", color: "red"}}>
         {errors.map((error =>
         <li >{error}</li>
         ))
       }
       </ul>
-      </h1>
-      <form onSubmit={handleSubmit}>
-        <h1 className="signup">Sign Up</h1>
           <input
+          className = "input"
           placeholder="Email"
           type="text"
           id="email"
@@ -65,6 +63,7 @@ function SignUp({ setUser }) {
           autoComplete="off"
         />
         <input
+          className = "input"
           placeholder="Enter Username"
           type="text"
           id="username"
@@ -73,6 +72,7 @@ function SignUp({ setUser }) {
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
+          className = "input"
           placeholder="Enter Password"
           type="password"
           id="password"
@@ -81,6 +81,7 @@ function SignUp({ setUser }) {
           autoComplete="current-password"
         />
         <input
+          className = "input"
           placeholder="Re-enter Password"
           type="password"
           id="password_confirmation"
@@ -88,7 +89,7 @@ function SignUp({ setUser }) {
           onChange={(e) => setPasswordConfirmation(e.target.value)}
           autoComplete="current-password"
         />
-        <button className="formBtn" type="submit">Submit</button>
+        <button className="signUpBtn" type="submit">Submit</button>
       </form>
     </div>
   );
