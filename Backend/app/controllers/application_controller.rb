@@ -7,6 +7,13 @@ class ApplicationController < ActionController::API
   before_action :authorize
  
  private
+  
+  def authorize
+    @current_user = User.find_by(id: session[:user_id])
+      
+    render json: { error: "This action is not authorized" }, status: :unauthorized unless @current_user
+  end
+
 
   def render_not_found_response(invalid)
    render json: { error: "#{invalid.mode} not found" }, status: :not_found
@@ -16,7 +23,7 @@ class ApplicationController < ActionController::API
    render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
   end
 
-  # This will throw the error unless the session includes :user_id, so if the user isn't logged in, we return 401 unauthorized
+  # Throw the error unless the session includes :user_id
   def authorize
     return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
   end
