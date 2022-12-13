@@ -1,8 +1,9 @@
 
-function Welcome () {
+function Welcome ({user}) {
+ console.log(user)
  return (
   <h1>
-   Hello
+   Hello {user.username}!
   </h1>
  )
 }

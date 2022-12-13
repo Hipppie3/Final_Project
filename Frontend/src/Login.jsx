@@ -1,9 +1,9 @@
 import {useState} from "react"
 
-function Login() {
+function Login({setUser}) {
 const [username, setUserName] = useState("")
 const [password, setPassword] = useState("")
-const [passwordConfirmation, setPasswordConfirmation] = useState("")
+const [errors, setErrors] = useState([])
 
 const handleSubmit = (e) => {
   e.preventDefault();
@@ -36,8 +36,10 @@ const handleSubmit = (e) => {
     }
  return(
   <div className = "login">
-   <h1> Login </h1>
-   <form className = "loginForm" onSubmit={handleSubmit}>
+   
+    {errors && <h1>{errors}</h1>}
+    <form className = "loginForm" onSubmit={handleSubmit}>
+    <h1> Login </h1>
     <input
      className ="input"
      placeholder = "Enter Username"

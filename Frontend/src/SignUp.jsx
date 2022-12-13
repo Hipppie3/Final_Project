@@ -1,30 +1,27 @@
 import {useState} from "react"
 
-function SignUp() {
- const [username, setUserName] = useState("")
- const [password, setPassword] = useState("")
- const [passwordConfirmation, setPasswordConfirmation] = useState("")
- const [firstName, setFirstName] = useState("")
- const [lastName, setLastName] = useState("")
- const [imageUrl, setImageUrl] = useState("")
- const [bio, setBio] = useState("")
+function SignUp({ setUser }) {
+  const [email, setEmail] = useState("")
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [errors, setErrors] = useState([])
 
- const handleSubmit = (e) => {
-  e.preventDefault
-  fetch("/api/signup", {
+  function handleSubmit(e) {
+    e.preventDefault();
+    fetch("/api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        firstName,
-        lastName,
+        email,
         username,
         password,
-        passwordConfirmation,
-        imageUrl,
-        bio
+        password_confirmation: passwordConfirmation,
+        
       }),
+      
     }).then((res) => {
       // clear errors
       console.log("***test")
@@ -46,69 +43,55 @@ function SignUp() {
         }
       })
     }
- return (
-  <div className = "signUp">
-   <h1> Welcome! </h1>
-   <form className = "signUpForm" onSubmit={handleSubmit}>
-      <input
-     placeholder = "First Name"
-     type = "text"
-     id = "first_name"
-     value = {firstName}
-     onChange = {(e) => setPassword(e.target.value)}
-     />
-     <input
-     placeholder = "Last Name"
-     type = "text"
-     id = "last_name"
-     value = {lastName}
-     onChange = {(e) => setPassword(e.target.value)}
-     />
-    <input
-     className ="input"
-     placeholder = "Enter Username"
-     type = "text"
-     id = "username"
-     autoComplete = "off"
-     value = {username}
-     onChange = {(e) => setUserName(e.target.value)}
-    />
-    <input
-     placeholder = "Create Password"
-     type = "password"
-     id = "password"
-     value = {password}
-     onChange = {(e) => setPassword(e.target.value)}
-     />
-     <input
-     placeholder = "Re-type Password"
-     type = "password"
-     id = "password_confirmation"
-     value = {passwordConfirmation}
-     onChange = {(e) => setPassword(e.target.value)}
-     />
-   
-     <input
-     placeholder = "Image Url"
-     type = "file"
-     id = "image_url"
-     value = {imageUrl}
-     onChange = {(e) => setPassword(e.target.value)}
-     />
-     <textarea
-     placeholder = "Bio"
-     type = "password"
-     id = "bio"
-     rows = "4"
-     cols = "50"
-     value = {bio}
-     onChange = {(e) => setPassword(e.target.value)}
-     ></textarea>
-     <button className = "signupSubmit"
-     type = "submit"> Submit </button>
-   </form>
-  </div>
- )
+
+  return (
+    <div>
+      <h1 className="signUpE">
+      <ul>
+        {errors.map((error =>
+        <li >{error}</li>
+        ))
+      }
+      </ul>
+      </h1>
+      <form onSubmit={handleSubmit}>
+        <h1 className="signup">Sign Up</h1>
+          <input
+          placeholder="Email"
+          type="text"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          autoComplete="off"
+        />
+        <input
+          placeholder="Enter Username"
+          type="text"
+          id="username"
+          autoComplete="off"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          placeholder="Enter Password"
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          autoComplete="current-password"
+        />
+        <input
+          placeholder="Re-enter Password"
+          type="password"
+          id="password_confirmation"
+          value={passwordConfirmation}
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
+          autoComplete="current-password"
+        />
+        <button className="formBtn" type="submit">Submit</button>
+      </form>
+    </div>
+  );
 }
 
-export default SignUp
+export default SignUp;
